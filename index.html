@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MQTT WebSocket Test</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  </head>
+  <body>
+    <h1>MQTT over WebSocket</h1>
+    <script>
+      const client = mqtt.connect('ws://localhost:9001/mqtt');
+
+      client.on('connect', function () {
+        console.log('Connected!');
+        client.subscribe('test/topic');
+        client.publish('test/topic', 'Hello from browser!');
+      });
+
+      client.on('message', function (topic, message) {
+        console.log(`Received on ${topic}: ${message.toString()}`);
+      });
+    </script>
+  </body>
+</html>
